@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Portal - What-If & Hypothetical Scenarios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Company Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Back to User Side</a></li>
+                <li><a href="#" id="logoutLink">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="postSection" style="display: none;">
+            <h2>Add a New Scenario</h2>
+            <form id="addScenarioForm">
+                <input type="text" id="title" placeholder="Scenario Title" required>
+                <input type="text" id="videoLink" placeholder="YouTube Video Link" required>
+                <input type="text" id="articleLink" placeholder="Article Link" required>
+                <input type="text" id="sourceLink" placeholder="Source Link" required>
+                <button type="submit">Add Scenario</button>
+            </form>
+
+            <h2>Manage Scenarios</h2>
+            <div id="companyContent">
+                <!-- Company scenarios dynamically loaded here -->
+            </div>
+        </section>
+
+        <section id="notLoggedInMessage">
+            <h2>Please log in to manage scenarios.</h2>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 What-If & Hypothetical Scenarios</p>
+    </footer>
+
+    <script src="company.js"></script>
+</body>
+</html>
