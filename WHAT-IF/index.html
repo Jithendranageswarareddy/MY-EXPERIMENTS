@@ -3,35 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What-If & Hypothetical Scenarios - User</title>
+    <title>What If - Hypothetical Scenarios</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>What-If & Hypothetical Scenarios</h1>
+        <h1 id="welcomeMessage">Welcome to What If!</h1>
+        <input type="text" id="searchBar" placeholder="Search...">
         <nav>
-            <ul>
-                <li><button><a href="#" id="what-if-link">What-If Scenarios</a></button></li>
-                <li><a href="#" id="hypothetical-link">Hypothetical Scenarios</a></li>
-                <li><a href="company.html">Company Portal</a></li>
+            <ul id="navBar">
+                <li><a href="#" class="category">Trending 1</a></li>
+                <li><a href="#" class="category">Trending 2</a></li>
+                <li><a href="#" class="category">Trending 3</a></li>
+                <li><a href="#" class="category">Trending 4</a></li>
+                <li><a href="#" class="category">Trending 5</a></li>
+                <li><a href="#" id="exploreAll">Explore All Categories</a></li>
             </ul>
         </nav>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search scenarios...">
-            <button onclick="searchScenario()">Search</button>
-        </div>
     </header>
 
-    <main>
-        <section id="content">
-            <!-- Content dynamically loaded here -->
-        </section>
-    </main>
+    <div id="trendingVideos">
+        <h2>Most Viewed Videos</h2>
+        <div class="carousel">
+            <!-- Placeholder for videos -->
+            <div class="video">Video 1</div>
+            <div class="video">Video 2</div>
+            <div class="video">Video 3</div>
+        </div>
+    </div>
+
+    <div id="content">
+        <h2>Content</h2>
+        <div id="contentList"></div>
+    </div>
+
+    <div id="ads">
+        <h3>Ads Section</h3>
+        <!-- Google Ads would be embedded here -->
+    </div>
 
     <footer>
-        <p>&copy; 2024 What-If & Hypothetical Scenarios</p>
+        <p>&copy; 2024 What If. All rights reserved.</p>
     </footer>
-
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
