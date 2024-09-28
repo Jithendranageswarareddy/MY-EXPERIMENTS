@@ -1,89 +1,50 @@
-// Sample data for What-If and Hypothetical Scenarios
-const scenarios = {
-    "what-if": [
-        {
-            title: "What If the Earth Stopped Spinning?",
-            videoLink: "https://www.youtube.com/watch?v=XYZ",
-            articleLink: "#",
-            sourceLink: "#"
-        },
-        {
-            title: "What If There Was No Moon?",
-            videoLink: "https://www.youtube.com/watch?v=ABC",
-            articleLink: "#",
-            sourceLink: "#"
-        }
-    ],
-    "hypothetical": [
-        {
-            title: "What If You Could Read Minds?",
-            videoLink: "https://www.youtube.com/watch?v=DEF",
-            articleLink: "#",
-            sourceLink: "#"
-        },
-        {
-            title: "What If We Lived on Mars?",
-            videoLink: "https://www.youtube.com/watch?v=GHI",
-            articleLink: "#",
-            sourceLink: "#"
-        }
-    ]
-};
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const contentList = document.getElementById("contentList");
+    const welcomeMessage = document.getElementById("welcomeMessage");
+    
+    // Function to fetch content from the backend
+    function fetchContent() {
+        fetch('/api/content')
+            .then(response => response.json())
+            .then(data => {
+                contentList.innerHTML = ''; // Clear existing content
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'item';
+                    div.innerHTML = `<h3>${item.title}</h3><p>${item.description}</p><button class="viewOptions">View Options</button>`;
+                    contentList.appendChild(div);
+                });
+            });
+    }
 
-// Function to render scenarios
-function renderScenarios(category) {
-    const contentDiv = document.getElementById('content');
-    contentDiv.innerHTML = ''; // Clear previous content
+    // Display a welcome message
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+        welcomeMessage.textContent = "Good Morning! Welcome to What If!";
+    } else if (currentHour < 18) {
+        welcomeMessage.textContent = "Good Afternoon! Welcome to What If!";
+    } else {
+        welcomeMessage.textContent = "Good Evening! Welcome to What If!";
+    }
 
-    scenarios[category].forEach((scenario) => {
-        const scenarioDiv = document.createElement('div');
-        scenarioDiv.classList.add('scenario');
-        
-        scenarioDiv.innerHTML = `
-            <h3>${scenario.title}</h3>
-            <p><a href="${scenario.videoLink}" target="_blank">Watch Video</a></p>
-            <p><a href="${scenario.articleLink}" target="_blank">Read Article</a></p>
-            <p><a href="${scenario.sourceLink}" target="_blank">Sources</a></p>
-        `;
-        contentDiv.appendChild(scenarioDiv);
-    });
-}
-
-// Event listeners for category links
-document.getElementById('what-if-link').addEventListener('click', () => {
-    renderScenarios('what-if');
-});
-
-document.getElementById('hypothetical-link').addEventListener('click', () => {
-    renderScenarios('hypothetical');
-});
-
-// Search functionality
-function searchScenario() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const contentDiv = document.getElementById('content');
-    contentDiv.innerHTML = ''; // Clear previous content
-
-    let found = false;
-    Object.keys(scenarios).forEach((category) => {
-        scenarios[category].forEach((scenario) => {
-            if (scenario.title.toLowerCase().includes(query)) {
-                const scenarioDiv = document.createElement('div');
-                scenarioDiv.classList.add('scenario');
-                
-                scenarioDiv.innerHTML = `
-                    <h3>${scenario.title}</h3>
-                    <p><a href="${scenario.videoLink}" target="_blank">Watch Video</a></p>
-                    <p><a href="${scenario.articleLink}" target="_blank">Read Article</a></p>
-                    <p><a href="${scenario.sourceLink}" target="_blank">Sources</a></p>
-                `;
-                contentDiv.appendChild(scenarioDiv);
-                found = true;
-            }
+    // Fetch content on page load
+    fetchContent();
+    
+    // Add search functionality
+    searchBar.addEventListener("input", function(event) {
+        const searchText = event.target.value.toLowerCase();
+        const items = document.querySelectorAll('.item');
+        items.forEach(item => {
+            const title = item.querySelector('h3').textContent.toLowerCase();
+            item.style.display = title.includes(searchText) ? 'block' : 'none';
         });
     });
 
-    if (!found) {
-        contentDiv.innerHTML = '<p>No scenarios found.</p>';
-    }
-}
+    // Event listener for view options
+    contentList.addEventListener('click', function(event) {
+        if (event.target.classList.contains('viewOptions')) {
+            alert('Options: Video, Article, Podcast, Audio');
+        }
+    });
+});
